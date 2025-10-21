@@ -1,31 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Informatique -Testez Vos competence</title>
+    <title>Quiz Informatique - Testez vos compétences</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
 </head>
 <body>
     <div class="container">
-        <header class="logo">
-            <h1>💻 QUIZ DEV</h1>
-            <p>-Testez vos competences techniques</p>
+        <header class="quiz-header">
+            <div class="logo">
+                <h1>💻 QUIZ DEV</h1>
+                <p>Testez vos connaissances techniques</p>
+            </div>
         </header>
+
         <main class="home-main">
             <section class="hero-section">
-                <div class="hero-contennt">
-                    <h2>Etez-vous un expert en developpement ?</h2>
+                <div class="hero-content">
+                    <h2>Êtes-vous un expert en développement ?</h2>
                     <p>Découvrez votre niveau avec notre quiz technique de 10 questions</p>
+                    
                     <div class="features">
                         <div class="feature">
                             <span>🎯</span>
                             <p>Questions techniques pointues</p>
-
                         </div>
                         <div class="feature">
                             <span>⚡</span>
                             <p>Feedback instantané</p>
-
                         </div>
                         <div class="feature">
                             <span>📊</span>
@@ -34,7 +38,54 @@
                     </div>
                 </div>
             </section>
+
+            <section class="difficulty-section">
+                <h3>Choisissez votre niveau :</h3>
+                <div class="difficulty-options">
+                    <button class="difficulty-btn" data-level="debutant" onclick="selectDifficulty('debutant')">
+                        <span class="icon">👶</span>
+                        <span class="level">Débutant</span>
+                        <span class="desc">Bases du développement</span>
+                    </button>
+                    
+                    <button class="difficulty-btn" data-level="intermediaire" onclick="selectDifficulty('intermediaire')">
+                        <span class="icon">🚀</span>
+                        <span class="level">Intermédiaire</span>
+                        <span class="desc">Concepts avancés</span>
+                    </button>
+                    
+                    <button class="difficulty-btn" data-level="expert" onclick="selectDifficulty('expert')">
+                        <span class="icon">🏆</span>
+                        <span class="level">Expert</span>
+                        <span class="desc">Défis techniques</span>
+                    </button>
+                </div>
+            </section>
+
+            <section class="start-section">
+                <button id="startQuiz" class="start-btn" onclick="startQuiz()">
+                    🚀 Commencer le Quiz
+                    <span class="timer-info">10 questions • 5 minutes</span>
+                </button>
+            </section>
+
+            <section class="stats-section">
+                <div class="stat">
+                    <span class="number">500+</span>
+                    <span class="label">Développeurs testés</span>
+                </div>
+                <div class="stat">
+                    <span class="number">85%</span>
+                    <span class="label">Taux de satisfaction</span>
+                </div>
+                <div class="stat">
+                    <span class="number">4.8/5</span>
+                    <span class="label">Note moyenne</span>
+                </div>
+            </section>
         </main>
     </div>
+
+    <script src="js/quiz.js"></script>
 </body>
 </html>
