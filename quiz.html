@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizDev - Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <section id="quiz-container" class="section active fade-in">
+            <div class="quiz-header">
+                
+                <div class="quiz-info">
+                    <span class="quiz-subject" id="current-subject">HTML</span>
+                    <span class="quiz-level" id="current-level">Débutant</span>
+                </div>
+                <div class="question-counter" id="question-counter">Question 1/5</div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            
+            <h2 class="question-text" id="question-text">Quelle balise est utilisée pour le titre le plus important ?</h2>
+            
+            <div class="options-container" id="options-container">
+            </div>
+            
+            <button class="next-button hidden" id="next-button">
+                <span>Question Suivante</span>
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </section>
+    </div>
+
+    <script src="js/quiz-data.js"></script>
+    <script src="js/quiz.js"></script>
+</body>
+</html>

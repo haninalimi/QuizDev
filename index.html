@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuizDev</title>
+    <title>QuizDev - Accueil</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -38,94 +38,8 @@
                 </div>
             </div>
         </section>
-        
-        <section id="level-selection" class="section hidden">
-            <button class="back-button" id="back-to-subjects">
-                <i class="fas fa-arrow-left"></i> Retour
-            </button>
-            <h1 class="logo" id="selected-subject-title">HTML</h1>
-            <p class="subtitle">Choisissez le niveau de difficulté pour votre quiz</p>
-            
-            <div class="level-grid">
-                <div class="level-card beginner" data-level="beginner">
-                    <div class="level-icon">
-                        <i class="fas fa-seedling" style="color: #4cc9f0;"></i>
-                    </div>
-                    <span class="level-difficulty">Débutant</span>
-                    <h3>Niveau Débutant</h3>
-                    <p>Idéal pour ceux qui commencent à apprendre. Questions sur les concepts de base.</p>
-                    <p><strong>5 questions</strong></p>
-                </div>
-                
-                <div class="level-card intermediate" data-level="intermediate">
-                    <div class="level-icon">
-                        <i class="fas fa-rocket" style="color: #f8961e;"></i>
-                    </div>
-                    <span class="level-difficulty">Intermédiaire</span>
-                    <h3>Niveau Intermédiaire</h3>
-                    <p>Pour ceux qui ont déjà des bases et veulent approfondir leurs connaissances.</p>
-                    <p><strong>8 questions</strong></p>
-                </div>
-                
-                <div class="level-card expert" data-level="expert">
-                    <div class="level-icon">
-                        <i class="fas fa-crown" style="color: #f72585;"></i>
-                    </div>
-                    <span class="level-difficulty">Expert</span>
-                    <h3>Niveau Expert</h3>
-                    <p>Défi pour les développeurs expérimentés. Questions complexes et scénarios avancés.</p>
-                    <p><strong>10 questions</strong></p>
-                </div>
-            </div>
-        </section>
-        
-        <section id="quiz-container" class="section hidden">
-            <div class="quiz-header">
-                <div class="quiz-info">
-                    <span class="quiz-subject" id="current-subject">HTML</span>
-                    <span class="quiz-level" id="current-level">Débutant</span>
-                </div>
-                <div class="question-counter" id="question-counter">Question 1/5</div>
-            </div>
-            
-            <div class="progress-container">
-                <div class="progress-bar" id="progress-bar"></div>
-            </div>
-            
-            <h2 class="question-text" id="question-text">Quelle balise est utilisée pour le titre le plus important ?</h2>
-            
-            <div class="options-container" id="options-container">
-            </div>
-            
-            <button class="next-button hidden" id="next-button">
-                <span>Question Suivante</span>
-                <i class="fas fa-arrow-right"></i>
-            </button>
-        </section>
-        
-        <section id="results-container" class="section hidden">
-            <div class="results-content">
-                <h1 class="logo">Quiz Terminé !</h1>
-                
-                <div class="score-circle">
-                    <div class="score-inner">
-                        <span class="score-value" id="final-score">0</span>
-                        <span class="score-total">sur <span id="total-questions">5</span></span>
-                    </div>
-                </div>
-                
-                <div class="feedback-message" id="feedback-message">
-                    Votre résultat s'affichera ici.
-                </div>
-                
-                <button class="restart-button" id="restart-button">
-                    <i class="fas fa-redo"></i>
-                    <span>Recommencer le Quiz</span>
-                </button>
-            </div>
-        </section>
     </div>
 
-    <script src="script.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>

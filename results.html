@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizDev - Résultats</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <section id="results-container" class="section active fade-in">
+            <div class="results-content">
+                <h1 class="logo">Quiz Terminé !</h1>
+                
+                <div class="score-circle">
+                    <div class="score-inner">
+                        <span class="score-value" id="final-score">0</span>
+                        <span class="score-total">sur <span id="total-questions">5</span></span>
+                    </div>
+                </div>
+                
+                <div class="feedback-message" id="feedback-message">
+                    Votre résultat s'affichera ici.
+                </div>
+                
+                <div class="results-buttons">
+                    <a href="index.html" class="restart-button" >
+                        <i class="fas fa-redo"></i>
+                        <span>Refaire le Quiz</span>
+                    </a>
+                   
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="js/results.js"></script>
+</body>
+</html>

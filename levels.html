@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizDev - Sélection du niveau</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <section id="level-selection" class="section active fade-in">
+            <a href="index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i> Retour
+            </a>
+            <h1 class="logo" id="selected-subject-title">HTML</h1>
+            <p class="subtitle">Choisissez le niveau de difficulté pour votre quiz</p>
+            
+            <div class="level-grid">
+                <div class="level-card beginner" data-level="beginner">
+                    <div class="level-icon">
+                        <i class="fas fa-seedling" style="color: #4cc9f0;"></i>
+                    </div>
+                    <span class="level-difficulty">Débutant</span>
+                    <h3>Niveau Débutant</h3>
+                    <p>Idéal pour ceux qui commencent à apprendre. Questions sur les concepts de base.</p>
+                    <p><strong>5 questions</strong></p>
+                </div>
+                
+                <div class="level-card intermediate" data-level="intermediate">
+                    <div class="level-icon">
+                        <i class="fas fa-rocket" style="color: #f8961e;"></i>
+                    </div>
+                    <span class="level-difficulty">Intermédiaire</span>
+                    <h3>Niveau Intermédiaire</h3>
+                    <p>Pour ceux qui ont déjà des bases et veulent approfondir leurs connaissances.</p>
+                    <p><strong>8 questions</strong></p>
+                </div>
+                
+                <div class="level-card expert" data-level="expert">
+                    <div class="level-icon">
+                        <i class="fas fa-crown" style="color: #f72585;"></i>
+                    </div>
+                    <span class="level-difficulty">Expert</span>
+                    <h3>Niveau Expert</h3>
+                    <p>Défi pour les développeurs expérimentés. Questions complexes et scénarios avancés.</p>
+                    <p><strong>10 questions</strong></p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="js/levels.js"></script>
+</body>
+</html>
