@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const score = parseFloat(localStorage.getItem('quizScore')) || 0;
     const totalQuestions = parseInt(localStorage.getItem('totalQuestions')) || 0;
     const selectedSubject = localStorage.getItem('selectedSubject');
@@ -17,17 +17,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const backToResultsBtn = document.getElementById('back-to-results');
     const highscoresList = document.getElementById('highscores-list');
     
-    finalScoreSpan.textContent = score;
-    totalQuestionsSpan.textContent = totalQuestions;
+    if (finalScoreSpan) finalScoreSpan.textContent = score;
+    if (totalQuestionsSpan) totalQuestionsSpan.textContent = totalQuestions;
 
     const scoreCircle = document.querySelector('.score-circle');
     const percentage = Math.round((score / totalQuestions) * 100);
-    scoreCircle.style.background = `conic-gradient(var(--primary) ${percentage}%, #e9ecef ${percentage}%)`;
+    if (scoreCircle) {
+        scoreCircle.style.background = `conic-gradient(var(--primary) ${percentage}%, #e9ecef ${percentage}%)`;
+    }
 
     let message = '';
+    const subjectNames = {
+        'html': 'HTML',
+        'css': 'CSS', 
+        'js': 'JavaScript'
+    };
 
     if (percentage === 100) {
-        message = "✨ FÉLICITATIONS ! Un sans faute ! Vous êtes un(e) véritable expert(e) en " + selectedSubject.toUpperCase() + ". Votre projet est entre de bonnes mains !";
+        message = "✨ FÉLICITATIONS ! Un sans faute ! Vous êtes un(e) véritable expert(e) en " + (subjectNames[selectedSubject] || selectedSubject) + ". Votre projet est entre de bonnes mains !";
     } else if (percentage >= 80) {
         message = "🌟 Excellent travail ! Vous maîtrisez bien le sujet. Quelques détails à revoir pour la perfection.";
     } else if (percentage >= 50) {
@@ -36,17 +43,21 @@ document.addEventListener('DOMContentLoaded', () => {
         message = "💡 Ne vous découragez pas ! Le développement web est un voyage. Reprenez le quiz et ciblez vos faiblesses.";
     }
 
-    feedbackMessage.textContent = message;
+    if (feedbackMessage) feedbackMessage.textContent = message;
     
-    finalScoreSpan.classList.add('pulse');
+    if (finalScoreSpan) finalScoreSpan.classList.add('pulse');
 
-    viewHighscoresBtn.addEventListener('click', showHighscores);
-    backToResultsBtn.addEventListener('click', hideHighscores);
+    if (viewHighscoresBtn) {
+        viewHighscoresBtn.addEventListener('click', showHighscores);
+    }
+    if (backToResultsBtn) {
+        backToResultsBtn.addEventListener('click', hideHighscores);
+    }
 
-    function showHighscores() {
+    async function showHighscores() {
         document.querySelector('.results-content').classList.add('highscores-active');
         highscoresSection.classList.remove('hidden');
-        displayHighscores();
+        await displayHighscores();
     }
 
     function hideHighscores() {
@@ -54,7 +65,58 @@ document.addEventListener('DOMContentLoaded', () => {
         highscoresSection.classList.add('hidden');
     }
 
-    function displayHighscores() {
+    async function displayHighscores() {
+        try {
+            const response = await fetch('api/get_highscores.php');
+            const data = await response.json();
+            
+            if (data.success && data.highscores && data.highscores.length > 0) {
+                let html = `
+                    <table class="highscores-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Joueur</th>
+                                <th>Score</th>
+                                <th>Sujet</th>
+                                <th>Niveau</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                data.highscores.forEach((score, index) => {
+                    const levelNames = {
+                        'beginner': 'Débutant',
+                        'intermediate': 'Intermédiaire',
+                        'expert': 'Expert'
+                    };
+
+                    html += `
+                        <tr>
+                            <td class="score-rank">${index + 1}</td>
+                            <td><strong>${score.player_name}</strong></td>
+                            <td class="score-value-high">${score.score}/${score.total_questions} (${score.percentage}%)</td>
+                            <td>${score.subject}</td>
+                            <td>${levelNames[score.level] || score.level}</td>
+                            <td>${score.formatted_date}</td>
+                        </tr>
+                    `;
+                });
+
+                html += `</tbody></table>`;
+                highscoresList.innerHTML = html;
+            } else {
+                displayLocalHighscores();
+            }
+        } catch (error) {
+            console.error('Erreur chargement highscores:', error);
+            displayLocalHighscores();
+        }
+    }
+
+    function displayLocalHighscores() {
         const highscores = JSON.parse(localStorage.getItem('quizHighscores')) || [];
         
         if (highscores.length === 0) {
@@ -79,6 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>Joueur</th>
                         <th>Score</th>
                         <th>Sujet</th>
                         <th>Niveau</th>
@@ -95,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
             html += `
                 <tr>
                     <td class="score-rank">${index + 1}</td>
+                    <td><strong>${score.player_name || 'Anonyme'}</strong></td>
                     <td class="score-value-high">${score.score}/${score.totalQuestions} (${score.percentage}%)</td>
                     <td>${subjectNames[score.subject] || score.subject}</td>
                     <td>${levelNames[score.level] || score.level}</td>
@@ -103,11 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         });
 
-        html += `
-                </tbody>
-            </table>
-        `;
-
+        html += `</tbody></table>`;
         highscoresList.innerHTML = html;
     }
 });

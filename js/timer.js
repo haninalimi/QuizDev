@@ -13,7 +13,9 @@ class QuizTimer {
         this.updateTimerDisplay();
         
         const timerElement = document.getElementById('timer');
-        timerElement.parentElement.className = 'timer-container';
+        if (timerElement && timerElement.parentElement) {
+            timerElement.parentElement.className = 'timer-container';
+        }
         
         clearInterval(this.timerInterval);
         
@@ -21,10 +23,12 @@ class QuizTimer {
             this.timeLeft--;
             this.updateTimerDisplay();
             
-            if (this.timeLeft <= 10) {
-                timerElement.parentElement.classList.add('danger');
-            } else if (this.timeLeft <= 15) {
-                timerElement.parentElement.classList.add('warning');
+            if (timerElement && timerElement.parentElement) {
+                if (this.timeLeft <= 10) {
+                    timerElement.parentElement.classList.add('danger');
+                } else if (this.timeLeft <= 15) {
+                    timerElement.parentElement.classList.add('warning');
+                }
             }
             
             if (this.timeLeft <= 0) {
@@ -47,7 +51,6 @@ class QuizTimer {
     }
 
     getTimePenalty() {
-     
         return (this.baseTime - this.timeLeft) * this.penaltyPerSecond;
     }
 
