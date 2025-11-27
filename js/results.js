@@ -44,13 +44,13 @@ document.addEventListener('DOMContentLoaded', () => {
     backToResultsBtn.addEventListener('click', hideHighscores);
 
     function showHighscores() {
-        document.querySelector('.results-content > :not(#highscores-section)').classList.add('hidden');
+        document.querySelector('.results-content').classList.add('highscores-active');
         highscoresSection.classList.remove('hidden');
         displayHighscores();
     }
 
     function hideHighscores() {
-        document.querySelector('.results-content > :not(#highscores-section)').classList.remove('hidden');
+        document.querySelector('.results-content').classList.remove('highscores-active');
         highscoresSection.classList.add('hidden');
     }
 
