@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const score = parseInt(localStorage.getItem('quizScore')) || 0;
+    const score = parseFloat(localStorage.getItem('quizScore')) || 0;
     const totalQuestions = parseInt(localStorage.getItem('totalQuestions')) || 0;
     const selectedSubject = localStorage.getItem('selectedSubject');
     const selectedLevel = localStorage.getItem('selectedLevel');
@@ -12,12 +12,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const finalScoreSpan = document.getElementById('final-score');
     const totalQuestionsSpan = document.getElementById('total-questions');
     const feedbackMessage = document.getElementById('feedback-message');
+    const viewHighscoresBtn = document.getElementById('view-highscores-btn');
+    const highscoresSection = document.getElementById('highscores-section');
+    const backToResultsBtn = document.getElementById('back-to-results');
+    const highscoresList = document.getElementById('highscores-list');
     
     finalScoreSpan.textContent = score;
     totalQuestionsSpan.textContent = totalQuestions;
 
     const scoreCircle = document.querySelector('.score-circle');
-    const percentage = (score / totalQuestions) * 100;
+    const percentage = Math.round((score / totalQuestions) * 100);
     scoreCircle.style.background = `conic-gradient(var(--primary) ${percentage}%, #e9ecef ${percentage}%)`;
 
     let message = '';
@@ -35,4 +39,75 @@ document.addEventListener('DOMContentLoaded', () => {
     feedbackMessage.textContent = message;
     
     finalScoreSpan.classList.add('pulse');
+
+    viewHighscoresBtn.addEventListener('click', showHighscores);
+    backToResultsBtn.addEventListener('click', hideHighscores);
+
+    function showHighscores() {
+        document.querySelector('.results-content > :not(#highscores-section)').classList.add('hidden');
+        highscoresSection.classList.remove('hidden');
+        displayHighscores();
+    }
+
+    function hideHighscores() {
+        document.querySelector('.results-content > :not(#highscores-section)').classList.remove('hidden');
+        highscoresSection.classList.add('hidden');
+    }
+
+    function displayHighscores() {
+        const highscores = JSON.parse(localStorage.getItem('quizHighscores')) || [];
+        
+        if (highscores.length === 0) {
+            highscoresList.innerHTML = '<div class="no-scores">Aucun meilleur score enregistré pour le moment.</div>';
+            return;
+        }
+
+        const subjectNames = {
+            'html': 'HTML',
+            'css': 'CSS', 
+            'js': 'JavaScript'
+        };
+
+        const levelNames = {
+            'beginner': 'Débutant',
+            'intermediate': 'Intermédiaire',
+            'expert': 'Expert'
+        };
+
+        let html = `
+            <table class="highscores-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Score</th>
+                        <th>Sujet</th>
+                        <th>Niveau</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+        highscores.forEach((score, index) => {
+            const date = new Date(score.date);
+            const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+            
+            html += `
+                <tr>
+                    <td class="score-rank">${index + 1}</td>
+                    <td class="score-value-high">${score.score}/${score.totalQuestions} (${score.percentage}%)</td>
+                    <td>${subjectNames[score.subject] || score.subject}</td>
+                    <td>${levelNames[score.level] || score.level}</td>
+                    <td>${formattedDate}</td>
+                </tr>
+            `;
+        });
+
+        html += `
+                </tbody>
+            </table>
+        `;
+
+        highscoresList.innerHTML = html;
+    }
 });
